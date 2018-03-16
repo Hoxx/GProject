@@ -1,20 +1,30 @@
 package com.hxx.gprojrct;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import com.hxx.xlibrary.mvp.XBaseActivityView;
+
+
+public class MainActivity extends XBaseActivityView<ContractMain.Presenter> implements ContractMain.View {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int layoutResID() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    public ContractMain.Presenter createPresenter() {
+        return new PresenterMain(this);
+    }
 
+    @Override
+    public void initView() {
+
+    }
+
+    @Override
+    public void initData() {
         switchFragmentContent(new ProgressFragment());
-
-
     }
 
     private void switchFragmentContent(Fragment fragment) {
