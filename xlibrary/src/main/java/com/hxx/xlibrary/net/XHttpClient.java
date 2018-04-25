@@ -2,10 +2,9 @@ package com.hxx.xlibrary.net;
 
 import android.util.SparseArray;
 
-
 import com.hxx.xlibrary.exception.XHttpNotFoundBaseUrlException;
+import com.hxx.xlibrary.exception.XNetInitializeException;
 import com.hxx.xlibrary.net.converter.XGsonConverterFactory;
-import com.hxx.xlibrary.net.converter.XResponseBodyConverterCallBack;
 import com.hxx.xlibrary.util.L;
 
 import java.io.IOException;
@@ -66,9 +65,9 @@ public class XHttpClient {
 
     //创建请求接口实例
     public <T> T createService(Class<T> service) {
-        if (retrofit != null)
-            return retrofit.create(service);
-        return null;
+        if (retrofit == null)
+            throw new XNetInitializeException();
+        return retrofit.create(service);
     }
 
     //创建请求框架
@@ -76,10 +75,10 @@ public class XHttpClient {
         OkHttpClient okHttpClient = builder.build();
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(okHttpClient);
-        if (xHttpCallback != null)
+        if (xHttpCallback != null) {
             builder.baseUrl(xHttpCallback.getHttpBaseUrl());
-        if (xHttpCallback instanceof XResponseBodyConverterCallBack)
-            builder.addConverterFactory(XGsonConverterFactory.create(((XResponseBodyConverterCallBack) xHttpCallback)));
+            builder.addConverterFactory(XGsonConverterFactory.create(xHttpCallback));
+        }
         retrofit = builder.build();
     }
 
@@ -136,8 +135,6 @@ public class XHttpClient {
         if (params == null || params.size() <= 0) {
             if (xHttpCallback instanceof XHttpHeaderParamsCallback) {
                 params = ((XHttpHeaderParamsCallback) xHttpCallback).getParams();
-            } else if (xHttpCallback instanceof XHttpAllCallback) {
-                params = ((XHttpAllCallback) xHttpCallback).getParams();
             }
         }
     }

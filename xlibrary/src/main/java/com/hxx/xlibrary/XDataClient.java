@@ -4,6 +4,7 @@ import com.hxx.xlibrary.db.XDBClient;
 import com.hxx.xlibrary.exception.XDBInitializeException;
 import com.hxx.xlibrary.manager.XRequestManager;
 import com.hxx.xlibrary.net.XHttpClient;
+import com.hxx.xlibrary.util.L;
 
 /**
  * Created by HXX on 2017/12/30.
@@ -16,6 +17,8 @@ public class XDataClient {
     private XRequestManager xRequestManager;
     private XDBClient xdbClient;
     private XHttpClient xHttpClient;
+
+    private Object API;
 
     public static XDataClient getInstance() {
         if (instance == null) {
@@ -57,6 +60,12 @@ public class XDataClient {
     //取消请求
     public void cancelRequest(String... tags) {
         XRequest().cancelRequest(tags);
+    }
+
+    public <T> T getAPI(final Class<T> service) {
+        if (API == null)
+            API = XHttp().createService(service);
+        return (T) API;
     }
 
 }

@@ -1,5 +1,9 @@
 package com.hxx.xlibrary.mvp;
 
+import com.hxx.xlibrary.XDataClient;
+import com.hxx.xlibrary.db.XDBClient;
+import com.hxx.xlibrary.manager.XRequestManager;
+
 /**
  * Created by Android on 2018/1/11.
  */
@@ -13,10 +17,6 @@ public abstract class XBasePresenter<V> {
     }
 
 
-    public void onStart() {
-
-    }
-    
     public void onRestart() {
 
     }
@@ -36,6 +36,17 @@ public abstract class XBasePresenter<V> {
 
     }
 
+    public <T> T getAPI(Class<T> service) {
+        return XDataClient.getInstance().getAPI(service);
+    }
+
+    public XRequestManager XRequest() {
+        return XDataClient.getInstance().XRequest();
+    }
+
+    public XDBClient XDB() {
+        return XDataClient.getInstance().XDB();
+    }
 
     public void detachView() {
         if (view != null) {

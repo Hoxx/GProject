@@ -3,6 +3,8 @@ package com.hxx.xlibrary.net.converter;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+import com.hxx.xlibrary.net.XHttpCallback;
+import com.hxx.xlibrary.util.L;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -18,40 +20,24 @@ import retrofit2.Retrofit;
 
 public class XGsonConverterFactory extends Converter.Factory {
 
-    public static XGsonConverterFactory create() {
-        return create(new Gson());
-    }
+    private final Gson gson;
+    private XHttpCallback xHttpCallback;
 
-    public static XGsonConverterFactory create(Gson gson) {
-        if (gson == null) throw new NullPointerException("gson == null");
-        return new XGsonConverterFactory(gson, null);
-    }
-
-    public static XGsonConverterFactory create(XResponseBodyConverterCallBack callBack) {
+    public static XGsonConverterFactory create(XHttpCallback callBack) {
         if (callBack == null)
-            throw new NullPointerException("XResponseBodyConverterCallBack == null");
+            throw new NullPointerException("XHttpCallback == null");
         return new XGsonConverterFactory(new Gson(), callBack);
     }
 
-    public static XGsonConverterFactory create(Gson gson, XResponseBodyConverterCallBack callBack) {
-        if (callBack == null)
-            throw new NullPointerException("XResponseBodyConverterCallBack == null");
-        if (gson == null) throw new NullPointerException("gson == null");
-        return new XGsonConverterFactory(gson, callBack);
-    }
-
-    private final Gson gson;
-    private XResponseBodyConverterCallBack xResponseBodyConverterCallBack;
-
-    private XGsonConverterFactory(Gson gson, XResponseBodyConverterCallBack callBack) {
+    private XGsonConverterFactory(Gson gson, XHttpCallback callBack) {
         this.gson = gson;
-        this.xResponseBodyConverterCallBack = callBack;
+        this.xHttpCallback = callBack;
     }
 
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
-        return new XGsonResponseBodyConverter<>(gson, adapter, xResponseBodyConverterCallBack);
+        return new XGsonResponseBodyConverter<>(gson, type, adapter, xHttpCallback);
     }
 
     @Override
