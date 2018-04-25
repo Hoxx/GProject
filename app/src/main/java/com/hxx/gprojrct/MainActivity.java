@@ -25,6 +25,7 @@ public class MainActivity extends XBaseActivityView<ContractMain.Presenter> impl
     @Override
     public void initData() {
         switchFragmentContent(new ProgressFragment());
+//        switchFragmentContent(new HttpsFragment());
     }
 
     private void switchFragmentContent(Fragment fragment) {

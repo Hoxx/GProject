@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.hxx.xlibrary.util.L;
+
 /**
  * Created by Android on 2018/3/15.
  */
@@ -42,6 +44,8 @@ public class PointProgress extends View {
     private String text;
     //动画
     private ValueAnimator valueAnimator;
+    //继续的帧数
+    private long continuePlayTime;
     //文字格式
     private String textFormat = "%.1f秒";
     //颜色
@@ -90,7 +94,7 @@ public class PointProgress extends View {
      */
     public void start(long maxMillis, String format) {
         if (maxMillis < 1000) return;
-        if (!TextUtils.isEmpty(text))
+        if (!TextUtils.isEmpty(format))
             this.textFormat = format;
         setMax(maxMillis);
         valueAnimator = ValueAnimator.ofFloat(0, maxMillis).setDuration(maxMillis);
@@ -104,6 +108,29 @@ public class PointProgress extends View {
             }
         });
         valueAnimator.start();
+    }
+
+    /**
+     * 停止
+     */
+    public void onStop() {
+        if (valueAnimator != null && valueAnimator.isRunning()) {
+            continuePlayTime = valueAnimator.getCurrentPlayTime();
+            if (continuePlayTime >= max) continuePlayTime = 0;
+            valueAnimator.cancel();
+        }
+    }
+
+    /**
+     * 停止之后 如果没有达到最大值，则可以继续
+     */
+    public void onContinue() {
+        if (valueAnimator != null && !valueAnimator.isRunning()) {
+            if (continuePlayTime > 0 && continuePlayTime < max) {
+                valueAnimator.setCurrentPlayTime(continuePlayTime);
+                valueAnimator.start();
+            }
+        }
     }
 
     /**
