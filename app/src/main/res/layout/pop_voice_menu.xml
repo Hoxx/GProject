@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="背景音乐"
+            android:textColor="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_bg_voice_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="-"
+                android:textColor="#FFF" />
+
+            <RatingBar
+                android:id="@+id/rb_bg_voice"
+                style="@style/RatingStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/btn_bg_voice_down"
+                android:rating="3" />
+
+            <Button
+                android:id="@+id/btn_bg_voice_up"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/rb_bg_voice"
+                android:background="@color/colorPrimary"
+                android:text="+"
+                android:textColor="#FFF" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="麦克风"
+            android:textColor="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_mic_voice_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="-"
+                android:textColor="#FFF" />
+
+            <RatingBar
+                android:id="@+id/rb_mic_voice"
+                style="@style/RatingStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/btn_mic_voice_down"
+                android:rating="3" />
+
+            <Button
+                android:id="@+id/btn_mic_voice_up"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/rb_mic_voice"
+                android:background="@color/colorPrimary"
+                android:text="+"
+                android:textColor="#FFF" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="混响"
+            android:textColor="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_ber_voice_down"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:text="-"
+                android:textColor="#FFF" />
+
+            <RatingBar
+                android:id="@+id/rb_ber_voice"
+                style="@style/RatingStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/btn_ber_voice_down"
+                android:rating="3" />
+
+            <Button
+                android:id="@+id/btn_ber_voice_up"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@+id/rb_ber_voice"
+                android:background="@color/colorPrimary"
+                android:text="+"
+                android:textColor="#FFF" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

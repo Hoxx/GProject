@@ -8,11 +8,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <DatePicker
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_pop"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"/>
+        android:layout_gravity="center"
+        android:text="显示弹窗"
+        android:textColor="@color/colorPrimary" />
+
 
 </FrameLayout>
